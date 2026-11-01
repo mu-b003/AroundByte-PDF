@@ -1,0 +1,3 @@
+{"name":"aroundbyte-pdf","version":"1.0.0","private":true,"type":"module",
+ "scripts":{"serve":"node serve.mjs 8080","test:logic":"node tests/worker-logic.test.mjs","test:e2e":"node tests/e2e.mjs"},
+ "devDependencies":{"playwright":"^1.48.0"}}

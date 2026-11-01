@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>AroundByte PDF</title>
+<link rel="icon" type="image/png" href="assets/aroundbyte-icon.png">
+<link rel="stylesheet" href="css/app.css">
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <a class="brand" href="./" aria-label="AroundByte PDF - Home"><img class="brand-logo" src="assets/aroundbyte-logo.png" alt="AroundByte PDF"></a>
+    <nav id="nav" aria-label="Tools"></nav>
+    <p class="priv" id="priv"></p>
+  </aside>
+  <main>
+    <header class="top"><div><h1 id="title"></h1><p id="desc"></p></div><button id="lang" class="btn ghost"></button></header>
+    <!-- Ad placement: stays hidden until real AdSense code is added -->
+    <div class="ad" data-ad-slot="top" hidden></div>
+    <section id="view"></section>
+    <div class="ad" data-ad-slot="bottom" hidden></div>
+    <footer class="app-footer">
+      <div class="app-footer-links">
+        <a href="about.html" data-legal="about">About Us</a>
+        <a href="contact.html" data-legal="contact">Contact Us</a>
+        <a href="privacy.html" data-legal="privacy">Privacy Policy</a>
+        <a href="terms.html" data-legal="terms">Terms of Use</a>
+        <a href="cookies.html" data-legal="cookies">Cookie Policy</a>
+        <a href="disclaimer.html" data-legal="disclaimer">Disclaimer</a>
+      </div>
+      <span>© <span id="footerYear"></span> AroundByte</span>
+    </footer>
+  </main>
+</div>
+<dialog id="dlg"></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
