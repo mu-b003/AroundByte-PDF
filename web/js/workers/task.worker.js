@@ -14,12 +14,20 @@ async function openDoc(file){
 }
 // j: {file,sx,sy,sw,sh,w,h,type,quality,white}
 async function encode(j){
-  const bmp=await createImageBitmap(j.file),cv=new OffscreenCanvas(j.w,j.h),g=cv.getContext('2d');
-  if(j.white){g.fillStyle='#fff';g.fillRect(0,0,j.w,j.h)}
-  g.drawImage(bmp,j.sx,j.sy,j.sw,j.sh,0,0,j.w,j.h);bmp.close();
-  const blob=await cv.convertToBlob({type:j.type,quality:j.quality});
-  if(blob.type!==j.type)fail('type',j.file.name);
-  return blob;
+  const bmp=await createImageBitmap(j.file);
+  let cv;
+  try{
+    cv=new OffscreenCanvas(j.w,j.h);
+    const g=cv.getContext('2d');
+    if(j.white){g.fillStyle='#fff';g.fillRect(0,0,j.w,j.h)}
+    g.drawImage(bmp,j.sx,j.sy,j.sw,j.sh,0,0,j.w,j.h);
+    const blob=await cv.convertToBlob({type:j.type,quality:j.quality});
+    if(blob.type!==j.type)fail('type',j.file.name);
+    return blob;
+  }finally{
+    bmp.close();
+    if(cv){cv.width=0;cv.height=0}
+  }
 }
 const finish=async(doc,pages)=>{
   const bytes=await doc.save();
@@ -45,6 +53,30 @@ const OPS={
     copied.forEach((pg,k)=>{pg.setRotation(degrees(((src.getPage(list[k].i).getRotation().angle+(list[k].rot||0))%360+360)%360));out.addPage(pg);
       if(k%20===0)post({type:'progress',a:k+1,b:list.length})});
     return finish(out,list.length)},
+  async rotate({file,angle}){lib('pdf-lib.min.js');const {degrees}=PDFLib,doc=await openDoc(file);if(![90,180,270].includes(Number(angle)))fail('badangle');
+    doc.getPages().forEach(p=>p.setRotation(degrees((p.getRotation().angle+angle+360)%360)));
+    return finish(doc,doc.getPageCount())},
+  async watermark({file,png}){lib('pdf-lib.min.js');const doc=await openDoc(file);
+    if(!(png instanceof Uint8Array)||!png.length)fail('badtext');
+    let image;try{image=await doc.embedPng(png)}catch(e){fail('badtext')}
+    doc.getPages().forEach(p=>{const {width,height}=p.getSize();
+      const scale=Math.min(1,width*.9/image.width,height*.9/image.height);
+      const w=image.width*scale,h=image.height*scale;
+      p.drawImage(image,{x:(width-w)/2,y:(height-h)/2,width:w,height:h})});
+    return finish(doc,doc.getPageCount())},
+  async numbers({file,start,size,format}){lib('pdf-lib.min.js');const {StandardFonts,rgb}=PDFLib,doc=await openDoc(file),font=await doc.embedFont(StandardFonts.Helvetica);start=Math.max(1,Math.min(9999,Number(start)||1));size=Math.max(8,Math.min(24,Number(size)||11));
+    doc.getPages().forEach((p,i)=>{const {width}=p.getSize(),label=format==='of'?`${i+1+start-1} / ${doc.getPageCount()+start-1}`:`${i+start}`;
+      const s=Math.min(size,18),w=font.widthOfTextAtSize(label,s);p.drawText(label,{x:(width-w)/2,y:18,size:s,font,color:rgb(.25,.25,.25)})});
+    return finish(doc,doc.getPageCount())},
+  async metadata({file,fields}){lib('pdf-lib.min.js');const doc=await openDoc(file);
+    if(fields.title!==undefined)doc.setTitle(fields.title);if(fields.author!==undefined)doc.setAuthor(fields.author);
+    if(fields.subject!==undefined)doc.setSubject(fields.subject);if(fields.keywords!==undefined)doc.setKeywords(fields.keywords.split(',').map(x=>x.trim()).filter(Boolean));
+    if(fields.creator!==undefined)doc.setCreator(fields.creator);if(fields.producer!==undefined)doc.setProducer(fields.producer);
+    return finish(doc,doc.getPageCount())},
+  async zip({entries}){lib('jszip.min.js');const zip=new JSZip();
+    for(const item of entries){if(!item||!item.name||!item.blob)fail('badzip');const data=item.blob instanceof Blob?new Uint8Array(await item.blob.arrayBuffer()):item.blob;zip.file(item.name,data)}
+    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    return{value:{size:blob.size,blob}}},
 };
 self.onmessage=async({data:{op,payload}})=>{
   try{const r=await OPS[op](payload);post({type:'done',result:r.value},r.transfer)}

@@ -50,3 +50,10 @@ export function showResult({blob,name,pages}){
 }
 export function progress(root){const w=$('.prog',root),b=$('i',w),p=$('.pt',root);
   return{show(on){w.hidden=p.hidden=!on;b.style.width='0'},set(a,n){b.style.width=(a/n*100)+'%';p.textContent=t('working',{a,b:n})}}}
+export function showFileResult({blob,name,label}){
+  const dlg=$('#dlg'),url=URL.createObjectURL(blob),filename=name;
+  dlg.innerHTML=`<div class="dh"><b>${esc(label)} · ${esc(filename)} <span class="tag">${fmt(blob.size)}</span></b><button class="btn" id="rc">${t('close')}</button><button class="btn pri" id="rd">${t('download')}</button></div><div class="db"><p>${t('archiveReady')}</p></div>`;
+  $('#rd',dlg).onclick=()=>{const a=document.createElement('a');a.href=url;a.download=filename;a.click()};
+  $('#rc',dlg).onclick=()=>dlg.close();
+  dlg.addEventListener('close',()=>URL.revokeObjectURL(url),{once:true});dlg.showModal();
+}

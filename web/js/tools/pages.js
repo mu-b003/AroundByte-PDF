@@ -4,10 +4,21 @@ export const home={id:'home',titleKey:'homeTitle',descKey:'homeDesc',icon:ICON.h
   mount(root,tools){
     const T=tools.filter(x=>!['home','settings','about'].includes(x.id));
     const H={img2pdf:'hImg',merge:'hMrg',organize:'hOrg',extract:'hExt'};
-    const ART={img2pdf:'img-to-pdf.webp',merge:'merge-pdf.webp',organize:'organize-pdf.webp',extract:'extract-pdf.webp'};
-    root.innerHTML=`<div class="tiles">${T.map(x=>`<a class="tile tool-tile" href="#${x.id}" aria-label="${t(x.titleKey)}: ${t(H[x.id])}">
+    const ART={
+      img2pdf:'img-to-pdf.webp',
+      merge:'merge-pdf.webp',
+      organize:'organize-pdf.webp',
+      extract:'extract-pdf.webp',
+      rotate:'Rotate PDF.png',
+      watermark:'Add PDF Watermark.png',
+      numbers:'Add Page Numbers.png',
+      metadata:'Edit PDF Metadata.png',
+      'pdf-to-jpg':'PDF to JPG.png',
+      'pdf-to-png':'PDF to PNG.png'
+    };
+    root.innerHTML=`<div class="tiles">${T.map(x=>ART[x.id]?`<a class="tile tool-tile" href="#${x.id}" aria-label="${t(x.titleKey)}: ${t(x.descKey)}">
       <img class="tile-art" src="assets/tool-cards/${ART[x.id]}" alt="" loading="eager" decoding="async">
-    </a>`).join('')}</div>`;
+    </a>`:`<a class="tile tool-tile tool-tile-text" href="#${x.id}"><span class="tile-copy"><b>${t(x.titleKey)}</b><small>${t(x.descKey)}</small></span></a>`).join('')}</div>`;
   }};
 export const settings={id:'settings',titleKey:'setTitle',descKey:'setDesc',icon:ICON.gear,
   mount(root,_,rerender){root.innerHTML=`<div class="panel plain"><label>${t('langLbl')}<select id="l"><option value="en">English</option><option value="ar">العربية</option></select></label>

@@ -3,27 +3,33 @@
 ## Status
 | Area | Status |
 |---|---|
-| Worker logic in Node (inspect, merge, export order/rotation, corrupt/empty/truncated/header-only PDFs, ZIP) | RUN, 10/10 passed (`npm run test:logic`) |
-| JavaScript syntax, all files | RUN, OK |
-| Everything in a real browser (all tools, RTL/LTR, viewports, offline, IndexedDB persistence, memory, large files, downloads) | NOT RUN by the author. The build environment could not install a browser. |
+| Worker logic in Node (inspect, merge, export order/rotation, rotate, watermark, page numbers, metadata, corrupt/empty/truncated/header-only PDFs, ZIP) | PASS, 17/17 (`npm run test:logic`) |
+| Worker manager (completion, errors, cancellation, callbacks, constructor failure) | PASS, 12/12 (`npm run test:worker-manager`) |
+| PDF preview lifecycle (URL revocation, render cancellation, late canvas encoding, PDF.js loading abort) | PASS, 4/4 (`npm run test:pdfthumbs-lifecycle`) |
+| JavaScript syntax, all source and test files | PASS |
+| Browser end-to-end suite | Previously PASS, 111/111 before the latest lifecycle changes; must be rerun against this revision |
 
-An automated browser suite is provided in `tests/e2e.mjs`. It was written but never executed, so expect to fix small script issues the first time.
+The current revision has 33 passing Node tests. The 111-test browser result belongs to the preceding revision and is not being presented as verification of the latest lifecycle changes. Do not treat this revision as fully release-verified until the browser suite is rerun.
 
 ## Run it
 ```
-npm install && npx playwright install chromium
+npm ci && npx playwright install chromium
 node serve.mjs 8080            # terminal 1
 node tests/e2e.mjs             # terminal 2 -> tests/out/report.json + screenshots
+
+# Fast local regression checks (no browser required)
+npm run test:worker-manager && npm run test:logic && npm run test:pdfthumbs-lifecycle
 ```
-It covers: Image to PDF (A4/A3/Letter, both orientations, 3 fit modes, output size check), Merge (order, invalid/empty/corrupt files), Organize (rotate, drag reorder, delete, export), Extract (ranges, invalid range), Compressor (JPEG/WebP/PNG, resize, ZIP contents), Cancel, 800-page merge (frame-gap responsiveness and heap growth), 9 pages x 2 languages x 3 viewports (direction, horizontal overflow, screenshots), RTL sidebar position, history after refresh and after browser restart (persistent profile), fully offline operation, zero external requests, and no uncaught page errors.
+It covers: Image to PDF (A4/A3/Letter, both orientations, fit modes), Merge (order and invalid files), Organize (rotate, drag reorder, delete), Extract (ranges), Rotate PDF, Watermark, Page Numbers, Metadata, PDF to JPG/PNG (ZIP contents), Cancel, 800-page merge responsiveness, all exposed tool routes in English and Arabic across desktop/tablet/mobile, RTL sidebar position, offline operation, zero external requests and uncaught page errors. The 111-test suite passed on the preceding revision; rerun it after the current changes. Manual checks below are still required before release.
 
 ## Manual checklist (things automation cannot judge)
 1. Open each screenshot in `tests/out/`; check Arabic alignment, icon/arrow direction, spacing, font rendering (Noto Sans Arabic), no clipped text.
 2. Image to PDF: open the downloaded PDF in Acrobat/Preview/Chrome; images not distorted; "Fill" crops evenly; no blank pages; Custom size and margins correct; a 30 MB photo and 100 images complete without freezing.
 3. Organize/Extract: thumbnails match pages; rotation direction is right; a password-protected PDF shows the password message; a 500-page PDF scrolls smoothly.
-4. Compressor: a file that does not shrink is flagged "Larger than original" and excluded from the ZIP; transparent PNG to JPEG gets a white background; unzip the ZIP and open every image.
-5. Safari/Firefox: WebP output (Safari without WebP encoding shows a clear message), drag and drop, dialogs.
-6. DevTools > Network > Offline after one online visit: reload and use every tool. Application > Service Workers shows `abpdf-v3` active.
-7. DevTools > Memory/Performance: run a 400+ page merge and several large image batches; confirm memory returns after closing dialogs (object URLs are revoked on close).
-8. Keyboard only: Tab reaches every control with a visible focus ring; Enter/Space on drop zones opens the picker; up/down buttons reorder lists.
-9. Real phone and tablet: layout, file picker, download behaviour.
+4. PDF to JPG/PNG: convert a small PDF, unzip the archive, and open every generated image. Try selected page ranges and all three resolution settings.
+5. Watermark: confirm placement, opacity, and Arabic/Latin text rendering. Page numbers: confirm position and numbering sequence. Metadata: inspect the output properties in a PDF reader.
+6. Safari/Firefox: drag and drop, file dialogs, downloads and PDF.js rendering.
+7. DevTools > Network > Offline after one online visit: reload and use every tool. Application > Service Workers should show `abpdf-v23` active.
+8. DevTools > Memory/Performance: run a 400+ page merge and PDF-to-image conversion of a 50-page file; confirm memory returns after closing dialogs and leaving Organize/Extract (thumbnail object URLs are revoked).
+9. Keyboard only: Tab reaches every control with a visible focus ring; Enter/Space on drop zones opens the picker; up/down buttons reorder lists.
+10. Real phone and tablet: layout, file picker, download behaviour.

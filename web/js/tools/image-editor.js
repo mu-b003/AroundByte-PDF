@@ -37,7 +37,7 @@ function transformCrop(c,W,H,kind){
   return c;
 }
 
-export async function editImage(file){
+export async function editImage(file,{signal}={}){
   let source;
   try{
     source=await createImageBitmap(file);
@@ -45,12 +45,17 @@ export async function editImage(file){
     throw new Error('image-open');
   }
 
+  if(signal?.aborted){source.close();throw new DOMException('The operation was aborted','AbortError')}
+
   let canvas=document.createElement('canvas');
-  canvas.width=source.width;
-  canvas.height=source.height;
-  canvas.getContext('2d').drawImage(source,0,0);
+  try{
+    canvas.width=source.width;
+    canvas.height=source.height;
+    const context=canvas.getContext('2d');
+    if(!context)throw new Error('Canvas is unavailable');
+    context.drawImage(source,0,0);
+  }finally{source.close()}
   const originalCanvas=canvas;
-  source.close();
 
   let crop={x:0,y:0,w:canvas.width,h:canvas.height};
   let result=null;
@@ -121,9 +126,11 @@ export async function editImage(file){
   }
 
   function close(value){
+    if(!dlg.open)return;
     result=value;
-    if(dlg.open)dlg.close();
+    dlg.close();
   }
+  const onAbort=()=>close(null);
 
   dlg.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>close(null));
 
@@ -132,7 +139,9 @@ export async function editImage(file){
       const kind=b.dataset.turn;
       const oldW=canvas.width,oldH=canvas.height;
       crop=transformCrop(crop,oldW,oldH,kind);
-      canvas=transformCanvas(canvas,kind);
+      const previous=canvas;
+      canvas=transformCanvas(previous,kind);
+      if(previous!==originalCanvas){previous.width=previous.height=0}
       render();
     };
   });
@@ -201,19 +210,26 @@ export async function editImage(file){
     out.height=h;
     out.getContext('2d').drawImage(canvas,x,y,w,h,0,0,w,h);
     out.toBlob(blob=>{
-      if(!blob)return;
+      out.width=out.height=0;
+      if(!blob||signal?.aborted)return;
       close(new File([blob],file.name,{type:'image/png',lastModified:Date.now()}));
     },'image/png');
   };
 
   return new Promise(resolve=>{
     dlg.addEventListener('close',()=>{
+      signal?.removeEventListener('abort',onAbort);
       dlg.remove();
+      canvas.width=canvas.height=0;
+      if(originalCanvas!==canvas)originalCanvas.width=originalCanvas.height=0;
+      view.width=view.height=0;
       resolve(result);
     },{once:true});
 
+    signal?.addEventListener('abort',onAbort,{once:true});
     document.body.appendChild(dlg);
     dlg.showModal();
-    render();
+    if(signal?.aborted)close(null);
+    else render();
   });
 }

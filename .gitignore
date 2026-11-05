@@ -4,3 +4,7 @@ node_modules/
 *.log
 backups/
 **/backups/
+
+# Local backup files and generated test artifacts
+**/*.backup-*
+web/tests/out/
