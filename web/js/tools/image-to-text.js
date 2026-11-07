@@ -7,7 +7,7 @@ let files=[],worker=null,generation=0,busy=false,cancelRequested=false;
 
 export function mount(root){
  const token=++generation,current=()=>token===generation;
- root.innerHTML=`<div class="work"><div>
+ root.innerHTML=`<div class="work image-text-work"><div>
   <div class="dz" id="dz" tabindex="0" role="button"><strong>${t('imageTextDrop')}</strong>${t('imageTextDropSub')}</div>
   <input id="fi" type="file" accept="image/*" multiple hidden>
   <div class="bar"><span id="info">${t('imageTextEmpty')}</span><span class="sp"></span><button class="btn ghost" id="clear" disabled>${t('imageTextClear')}</button></div>
@@ -15,7 +15,7 @@ export function mount(root){
   <div class="bar"><span id="status"></span></div>
   <div class="prog" id="progress" hidden><i id="progressFill"></i></div>
   <label for="result">${t('imageTextResult')}</label>
-  <textarea id="result" rows="14" dir="auto" placeholder="${t('imageTextPlaceholder')}" spellcheck="false"></textarea>
+  <textarea id="result" class="image-text-result" rows="14" dir="auto" placeholder="${t('imageTextPlaceholder')}" spellcheck="false"></textarea>
   <div class="bar"><button class="btn" id="copy" disabled>${t('imageTextCopy')}</button><button class="btn" id="download" disabled>${t('imageTextDownload')}</button></div>
  </div><div class="panel"><h2>${t('imageTextTitle')}</h2><p class="muted">${t('imageTextHint')}</p><p class="muted">${t('imageTextPrivacy')}</p>
   <button class="btn pri" id="go" disabled>${t('imageTextRun')}</button><button class="btn" id="stop" hidden>${t('cancel')}</button>
