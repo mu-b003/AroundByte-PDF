@@ -14,7 +14,13 @@ export const home={id:'home',titleKey:'homeTitle',descKey:'homeDesc',icon:ICON.h
       numbers:'Add Page Numbers.webp',
       metadata:'Edit PDF Metadata.webp',
       'pdf-to-jpg':'PDF to JPG.webp',
-      'pdf-to-png':'PDF to PNG.webp'
+      'pdf-to-png':'PDF to PNG.webp',
+      compress:'Compress PDF.png',
+      'image-to-text':'Image to Text.png',
+      sign:'Sign PDF.png',
+      forms:'Fill PDF Forms.png',
+      redact:'Redact PDF.png',
+      repair:'Repair PDF.png'
     };
     root.innerHTML=`<div class="tiles">${T.map(x=>ART[x.id]?`<a class="tile tool-tile" href="#${x.id}" aria-label="${t(x.titleKey)}: ${t(x.descKey)}">
       <img class="tile-art" src="assets/tool-cards/${ART[x.id]}" alt="" loading="eager" decoding="async">
