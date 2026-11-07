@@ -1,0 +1,16 @@
+Ghostscript WebAssembly - Corresponding Source
+
+Runtime version: Ghostscript 10.08.0
+Package: ghostscript-wasm 10.8.0
+License: GNU AGPL v3 or later
+
+The accompanying ghostscript-wasm-source.tar.gz contains the
+Ghostscript source tree, WebAssembly build script, JavaScript
+wrappers, package metadata, and the documented source modifications
+used by this Ghostscript WebAssembly distribution.
+
+The source archive SHA-256 is:
+2ccf9969cca14fb8f31f7919d0bb31a7821fb1d0f93ce9204be8c94497a46097
+
+This source is provided to accompany the Ghostscript WebAssembly
+runtime distributed in the parent directory.
