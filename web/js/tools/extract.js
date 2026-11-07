@@ -73,7 +73,7 @@ export function mount(root){
     try{
       const {bytes}=await operation.promise;
       if(!current()||st!==state)return;
-      showResult({blob:new Blob([bytes],{type:'application/pdf'}),name:safeName(name),pages:list.length});
+      showResult({blob:new Blob([bytes],{type:'application/pdf'}),name:safeName(name),pages:list.length,operation:'op_ext'});
     }catch(error){if(current())error==='cancel'?toast(t('cancelled')):toast(explain(error),'err')}
     finally{if(current()&&cur===operation){cur=null;busy=false;$('#stop',root).hidden=true;upd()}}
   };

@@ -2,19 +2,19 @@ import {t,lang,setLang} from '../i18n.js';
 import {$,ICON} from '../ui.js';
 export const home={id:'home',titleKey:'homeTitle',descKey:'homeDesc',icon:ICON.home,
   mount(root,tools){
-    const T=tools.filter(x=>!['home','settings','about'].includes(x.id));
+    const T=tools.filter(x=>!['home','settings','about','recent'].includes(x.id));
     const H={img2pdf:'hImg',merge:'hMrg',organize:'hOrg',extract:'hExt'};
     const ART={
       img2pdf:'img-to-pdf.webp',
       merge:'merge-pdf.webp',
       organize:'organize-pdf.webp',
       extract:'extract-pdf.webp',
-      rotate:'Rotate PDF.png',
-      watermark:'Add PDF Watermark.png',
-      numbers:'Add Page Numbers.png',
-      metadata:'Edit PDF Metadata.png',
-      'pdf-to-jpg':'PDF to JPG.png',
-      'pdf-to-png':'PDF to PNG.png'
+      rotate:'Rotate PDF.webp',
+      watermark:'Add PDF Watermark.webp',
+      numbers:'Add Page Numbers.webp',
+      metadata:'Edit PDF Metadata.webp',
+      'pdf-to-jpg':'PDF to JPG.webp',
+      'pdf-to-png':'PDF to PNG.webp'
     };
     root.innerHTML=`<div class="tiles">${T.map(x=>ART[x.id]?`<a class="tile tool-tile" href="#${x.id}" aria-label="${t(x.titleKey)}: ${t(x.descKey)}">
       <img class="tile-art" src="assets/tool-cards/${ART[x.id]}" alt="" loading="eager" decoding="async">

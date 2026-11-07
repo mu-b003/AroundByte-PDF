@@ -1,18 +1,11 @@
-# AroundByte PDF
+# AroundByte PDF — local project package
 
-AroundByte PDF is a static, browser-based PDF toolkit. The web application runs on Cloudflare Pages and processes supported files locally in the user's browser; no application backend or database is required.
+The web application source is in `web/`.
 
-## Project structure
-- `web/` — Static web application, vendored PDF libraries, Web Workers, SEO landing pages, sitemap and robots file.
-- `mobile/` — Reserved for a future independent mobile application.
+- No build step or backend is required.
+- Start locally with `cd web && node serve.mjs 8080`.
+- Open `http://localhost:8080`.
+- For current implementation scope, known limitations and test results, read `PROJECT_STATUS.md` and `web/TESTING.md`.
+- For dependency licensing, read `web/THIRD_PARTY_NOTICES.md`.
 
-## Web tools
-- Image to PDF, Merge PDF, Organize PDF and Extract PDF Pages.
-- Rotate PDF, Add Watermark, Add Page Numbers and Edit PDF Metadata.
-- PDF to JPG and PDF to PNG, with ZIP downloads.
-
-## Development
-See `web/README.md` for local development and `web/TESTING.md` for test instructions and known limitations.
-
-## Contact
-mubarakdigitals26@gmail.com
+This is a web-only package. It does not include the Flutter/Android app.

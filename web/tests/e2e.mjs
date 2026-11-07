@@ -1,7 +1,11 @@
 // Browser end-to-end suite (Playwright + Chromium). See TESTING.md for setup and current verification status.
-// Setup: npm ci && npx playwright install chromium ; in another terminal: node serve.mjs ; then: node tests/e2e.mjs
-import {chromium} from 'playwright';import fs from 'fs';import os from 'os';import path from 'path';import vm from 'vm';import {fileURLToPath} from 'url';
+// Setup: npm ci && npx playwright install chromium ; then: node tests/e2e.mjs (starts the local server if needed).
+import {chromium} from 'playwright';import fs from 'fs';import os from 'os';import path from 'path';import vm from 'vm';import {fileURLToPath} from 'url';import {spawn} from 'child_process';
 const root=path.join(path.dirname(fileURLToPath(import.meta.url)),'..'),URL_='http://localhost:8080/',out=path.join(root,'tests/out');fs.mkdirSync(out,{recursive:true});
+let server=null,serverReady=false;
+try{serverReady=(await fetch(URL_)).ok}catch{}
+if(!serverReady){server=spawn(process.execPath,[path.join(root,'serve.mjs'),'8080'],{cwd:root,stdio:'ignore'});let ready=false;for(let i=0;i<50;i++){try{const r=await fetch(URL_);if(r.ok){ready=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,100))}if(!ready){server.kill();throw new Error('Could not start the local test server on port 8080')}}
+process.on('exit',()=>server?.kill());
 for(const f of['pdf-lib','jszip'])vm.runInThisContext(fs.readFileSync(path.join(root,`vendor/${f}.min.js`),'utf8'));
 const {PDFDocument}=PDFLib,res=[],ck=(n,c,d='')=>{res.push({n,ok:!!c,d});console.log(c?'PASS':'FAIL',n,d)};
 const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'abpdf-')),profile=path.join(tmp,'profile'),fx=p=>path.join(tmp,p);
@@ -29,8 +33,9 @@ await go('img2pdf');await page.setInputFiles('#fi',['img.png','img.jpg','img.web
 for(const [size,orient,w,h] of[['a4','portrait',595.28,841.89],['a4','landscape',841.89,595.28],['letter','portrait',612,792],['a3','portrait',841.89,1190.55]]){
   await page.selectOption('#size',size);await page.selectOption('#orient',orient);await page.click('#go');await page.waitForSelector('#dlg[open]',{timeout:60000});
   const pdf=await PDFDocument.load(await dl()),coverSize=pdf.getPage(0).getSize(),s=pdf.getPage(1).getSize();
-  ck(`img2pdf ${size} ${orient}`,pdf.getPageCount()===4&&Math.abs(coverSize.width-595.28)<1&&Math.abs(coverSize.height-841.89)<1&&Math.abs(s.width-w)<1&&Math.abs(s.height-h)<1,`${s.width}x${s.height}`)}
-for(const fit of['contain','cover','actual']){await page.selectOption('#fit',fit);await page.click('#go');await page.waitForSelector('#dlg[open]',{timeout:60000});ck('img2pdf fit '+fit,(await PDFDocument.load(await dl())).getPageCount()===4)}
+  ck(`img2pdf ${size} ${orient}`,pdf.getPageCount()===3&&Math.abs(coverSize.width-w)<1&&Math.abs(coverSize.height-h)<1,`${coverSize.width}x${coverSize.height}`)}
+for(const fit of['contain','cover','actual']){await page.selectOption('#fit',fit);await page.click('#go');await page.waitForSelector('#dlg[open]',{timeout:60000});ck('img2pdf fit '+fit,(await PDFDocument.load(await dl())).getPageCount()===3)}
+await page.check('#addCover');await page.click('#go');await page.waitForSelector('#dlg[open]',{timeout:60000});ck('img2pdf optional cover',(await PDFDocument.load(await dl())).getPageCount()===4);await page.uncheck('#addCover');
 // 2 Merge (order) + invalid files
 await go('merge');await page.setInputFiles('#fi',[fx('corrupt.pdf'),fx('empty.pdf'),fx('text.pdf')]);await page.waitForTimeout(1500);
 ck('merge rejects invalid',(await page.$$('.row')).length===0);
@@ -120,10 +125,13 @@ ck('large merge integrity',bigCount===800,`actual=${bigCount}; expected=800; byt
 ck('UI stayed responsive (max frame gap < 250ms)',gapData.finished&&gapData.frames>0&&gapData.max<250,JSON.stringify(gapData));
 
 const heap1=await page.evaluate(()=>performance.memory?.usedJSHeapSize||0);ck('main-thread heap growth < 100MB',heap1-heap0<1e8,`${((heap1-heap0)/1e6).toFixed(1)}MB`);
+// Split PDF is a legacy SEO alias for Extract PDF Pages, not a separate tool.
+await go('split');await page.waitForTimeout(100);ck('split alias routes to extract',await page.evaluate(()=>location.hash==='#extract'));
+
 // 7 Language / RTL / viewports
 for(const [lang,dir] of[['ar','rtl'],['en','ltr']])for(const [name,w,h] of[['desktop',1440,900],['tablet',820,1180],['mobile',390,844]]){
   await page.setViewportSize({width:w,height:h});await page.evaluate(l=>localStorage.setItem('abpdf-lang',l),lang);
-  for(const t of['home','img2pdf','merge','organize','extract','rotate','watermark','numbers','metadata','pdf-to-jpg','pdf-to-png','settings','about']){await page.goto(URL_+'#'+t);await page.reload();
+  for(const t of['home','img2pdf','merge','organize','extract','rotate','watermark','numbers','metadata','pdf-to-jpg','pdf-to-png','compress','image-to-text','sign','fill-forms','redact','repair','recent','settings','about']){await page.goto(URL_+'#'+t);await page.reload();
     ck(`${lang}/${name}/${t} dir+no h-overflow`,await page.evaluate(d=>document.documentElement.dir===d&&document.documentElement.scrollWidth<=innerWidth+1,dir));
     if(t==='img2pdf'||t==='home')await page.screenshot({path:path.join(out,`${lang}-${name}-${t}.png`)})}}
 await page.setViewportSize({width:1440,height:900});await page.evaluate(()=>localStorage.setItem('abpdf-lang','ar'));await page.goto(URL_);await page.reload();
@@ -133,7 +141,7 @@ await page.evaluate(()=>localStorage.setItem('abpdf-lang','en'));
 await page.goto(URL_);await page.evaluate(()=>navigator.serviceWorker.ready);await page.reload();await page.waitForTimeout(500);
 await ctx.setOffline(true);await page.reload();ck('offline: app loads',(await page.title()).includes('AroundByte'));
 await go('img2pdf');await page.setInputFiles('#fi',fx('img.jpg'));await page.waitForSelector('.row');await page.click('#go');await page.waitForSelector('#dlg[open]',{timeout:60000});
-ck('offline: image to PDF works',(await PDFDocument.load(await dl())).getPageCount()===2);
+ck('offline: image to PDF works',(await PDFDocument.load(await dl())).getPageCount()===1);
 await go('rotate');await page.setInputFiles('#fi',fx('five.pdf'));await page.waitForSelector('#fileInfo');await page.click('#go');await page.waitForSelector('#dlg[open]');ck('offline: rotate works',(await PDFDocument.load(await dl())).getPageCount()===5);
 await go('organize');await page.setInputFiles('#fi',fx('five.pdf'));await page.waitForSelector('.card:nth-child(5) img[src]');ck('offline: PDF.js thumbnails work',true);
 await ctx.setOffline(false);

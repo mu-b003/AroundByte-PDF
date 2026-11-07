@@ -40,7 +40,7 @@ export function mount(root){
     if(token!==generation||busy)return;busy=true;upd();$('#stop',root).hidden=false;prog.show(true);
     try{const {bytes,pages}=await (cur=task('merge',{files:items.map(i=>i.file)},{onProgress:prog.set})).promise,
         n=safeName(name),blob=new Blob([bytes],{type:'application/pdf'});
-      showResult({blob,name:n,pages})}
+      showResult({blob,name:n,pages,operation:'op_merge'})}
     catch(e){e==='cancel'?toast(t('cancelled')):toast(explain(e),'err')}
     finally{
       if(token===generation){cur=null;busy=false;prog.show(false);$('#stop',root).hidden=true;upd()}

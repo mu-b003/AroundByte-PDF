@@ -23,3 +23,26 @@
 ## Deferred
 - PDF encryption/protection and password removal require a dedicated encryption-capable engine; they are not advertised as working.
 - Lossless/general-purpose PDF compression is not included. Rasterizing every page would remove selectable text and may reduce quality.
+
+
+## 2026-11-07 — Local hardening and tool additions
+
+- Image to PDF no longer inserts an AroundByte cover page automatically. The cover is optional and disabled by default.
+- Recent activity is now registered in the app navigation and completed operations record metadata locally in IndexedDB.
+- Restored the project's `.gitignore`.
+- Expanded the zero-dependency development server MIME map for MJS, XML, SVG, JPEG, PDF, WASM, and text files.
+- Converted six large tool-card PNG files to WebP and updated the app and service-worker references.
+- Updated the service-worker cache version to `abpdf-v25`.
+- Updated the browser E2E runner to start the local server when it is not already running.
+- Added a third-party notice file documenting which license texts are present and which still need upstream verification before redistribution.
+
+Verification in this build environment: logic tests 29/29, worker-manager tests 12/12, PDF thumbnail lifecycle tests 4/4, and JavaScript syntax checks passed. Browser E2E could not be run because the Playwright Chromium executable is not installed in this environment.
+
+- Added local Compress PDF (lossless rewrite with a strict no-larger-than-original guard), Sign PDF (signature image stamping), and Fill PDF Forms (AcroForm text/check/dropdown/radio fields).
+- Added regression tests for these worker operations.
+
+- Added PDF to Word text extraction with editable DOCX output, Arabic RTL paragraph metadata, and page breaks.
+- Added permanent redaction by replacing only marked pages with sanitized raster pages; unmarked pages remain vector content.
+- Added a limited PDF rebuild tool that reconstructs up to 10 pages that PDF.js can still render; rebuilt pages are images.
+
+- Replaced the planned PDF to Word tool with Image to Text using local Arabic and English OCR. PDF to Word is not part of this release.

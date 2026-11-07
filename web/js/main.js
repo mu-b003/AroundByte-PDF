@@ -1,5 +1,5 @@
 import {t,lang,setLang} from './i18n.js';
-import {$} from './ui.js';
+import {$,toast} from './ui.js';
 import * as img from './tools/img2pdf.js';
 import * as mrg from './tools/merge.js';
 import * as org from './tools/organize.js';
@@ -7,8 +7,15 @@ import * as ext from './tools/extract.js';
 import {rotate,watermark,numbers,metadata} from './tools/advanced.js';
 import {pdfToJpg,pdfToPng} from './tools/pdf-to-image.js';
 import {home,settings,about,applyTheme} from './tools/pages.js';
+import * as recent from './tools/recent.js';
+import * as compress from './tools/compress.js';
+import * as sign from './tools/sign.js';
+import * as forms from './tools/forms.js';
+import * as redact from './tools/redact.js';
+import * as repair from './tools/repair.js';
+import * as imageToText from './tools/image-to-text.js';
 import './strings.js';
-const TOOLS=[home,img,mrg,org,ext,rotate,watermark,numbers,metadata,pdfToJpg,pdfToPng,settings,about];
+const TOOLS=[home,img,mrg,org,ext,rotate,watermark,numbers,metadata,pdfToJpg,pdfToPng,compress,imageToText,sign,forms,redact,repair,recent,settings,about];
 applyTheme();
 const current=()=>TOOLS.find(x=>x.id===location.hash.slice(1))||TOOLS[0];
 let activeTool=null;
@@ -28,8 +35,9 @@ function render(reason='route'){
   tool.mount($('#view'),TOOLS,render);
 }
 $('#lang').onclick=()=>{setLang(lang()==='en'?'ar':'en');render('language')};
-addEventListener('hashchange',render);
-render();
+const normalizeRoute=()=>{if(['#split','#split-pdf'].includes(location.hash)){location.hash='extract';toast(t('splitAliasToast'));return true}return false};
+addEventListener('hashchange',()=>{if(!normalizeRoute())render()});
+if(!normalizeRoute())render();
 const footerYear=document.querySelector('#footerYear');
 if(footerYear)footerYear.textContent=new Date().getFullYear();
 const footerLinks=document.querySelectorAll('[data-legal]');

@@ -93,7 +93,7 @@ function imageTool({id,titleKey,descKey,format,mime,extension}){
           state.zipTask=task('zip',{entries});
           const zipped=await state.zipTask.promise;
           if(state.cancelled||!isCurrent())throw 'cancel';
-          showFileResult({blob:zipped.blob,name:`${selectedName}-${format}.zip`,label:t(titleKey)});
+          showFileResult({blob:zipped.blob,name:`${selectedName}-${format}.zip`,label:t(titleKey),operation:format==='jpg'?'op_pdfjpg':'op_pdfpng',pages:entries.length});
         }catch(error){
           if(isCurrent())(error==='cancel'||state.cancelled)?toast(t('cancelled')):toast(error.message||explain(error),'err');
         }finally{

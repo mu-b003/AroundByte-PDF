@@ -4,7 +4,7 @@ import {task,explain} from '../worker.js';
 import {editImage} from './image-editor.js';
 export const id='img2pdf',titleKey='imgTitle',descKey='imgDesc',icon=ICON.image;
 const items=[],pendingUrls=new Set();
-const S={size:'a4',orient:'portrait',margin:2,fit:'cover',quality:100,name:'AroundByteDocument',cw:210,ch:297};
+const S={size:'a4',orient:'portrait',margin:2,fit:'cover',quality:100,name:'AroundByteDocument',cw:210,ch:297,addCover:false};
 const SIZES={a3:[841.89,1190.55],a4:[595.28,841.89],a5:[419.53,595.28],letter:[612,792],legal:[612,1008]};
 const MM=72/25.4,MAX_DPI=200;
 let busy=false,cur=null,editing=false,generation=0,editorController=null;
@@ -68,6 +68,7 @@ export function mount(root){
   <label>${t('fit')}<select id="fit"><option value="contain">${t('fitContain')}</option><option value="cover">${t('fitCover')}</option><option value="actual">${t('fitActual')}</option></select></label>
   <label>${t('quality')}: <span id="qv">${S.quality}</span>%<input id="quality" type="range" min="40" max="100" value="${S.quality}"></label>
   <label>${t('fname')}<input id="name" value="${esc(S.name)}"></label>
+  <label class="check-row"><input id="addCover" type="checkbox" ${S.addCover?'checked':''}> ${t('addCover')}</label>
   <div class="prog" hidden><i></i></div><div class="pt" hidden></div>
   <button class="btn pri" id="go">${t('create')}</button><button class="btn" id="stop" hidden>${t('cancel')}</button></div></div>`;
 
@@ -112,6 +113,7 @@ export function mount(root){
     }
   });
 
+  $('#addCover',root).onchange=e=>{S.addCover=e.target.checked};
   for(const key of['size','orient','fit','margin','quality','name','cw','ch']){
     const element=$('#'+key,root);element.value=S[key];
     element.oninput=()=>{S[key]=element.type==='number'||element.type==='range'?+element.value:element.value;if(key==='quality')$('#qv',root).textContent=S[key];upd()};
@@ -122,11 +124,11 @@ export function mount(root){
   $('#go',root).onclick=async()=>{
     if(!current()||busy)return;
     busy=true;upd();$('#stop',root).hidden=false;prog.show(true);
-    const operation=task('pdfimg',{jobs:jobsFor()},{onProgress:(a,b)=>{if(current())prog.set(a,b)}});cur=operation;
+    const operation=task('pdfimg',{jobs:jobsFor(),addCover:S.addCover},{onProgress:(a,b)=>{if(current())prog.set(a,b)}});cur=operation;
     try{
       const {bytes,pages}=await operation.promise;
       if(!current())return;
-      showResult({blob:new Blob([bytes],{type:'application/pdf'}),name:safeName(S.name),pages});
+      showResult({blob:new Blob([bytes],{type:'application/pdf'}),name:safeName(S.name),pages,operation:'op_img2pdf'});
     }catch(error){if(current())error==='cancel'?toast(t('cancelled')):toast(explain(error),'err')}
     finally{if(current()){if(cur===operation)cur=null;busy=false;prog.show(false);$('#stop',root).hidden=true;upd()}}
   };

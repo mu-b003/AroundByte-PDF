@@ -75,7 +75,7 @@ function singlePdfTool({id,titleKey,descKey,icon,fields,operation,outputSuffix})
           if(!isCurrent())return;
           job=task(operation,payload);currentTask=job;
           const result=await job.promise;
-          if(isCurrent())showResult({blob:new Blob([result.bytes],{type:'application/pdf'}),name:safeName(outputName||base),pages:result.pages});
+          if(isCurrent())showResult({blob:new Blob([result.bytes],{type:'application/pdf'}),name:safeName(outputName||base),pages:result.pages,operation:'op_'+operation});
         }catch(error){if(isCurrent()&&error?.name!=='AbortError')error==='cancel'?toast(t('cancelled')):toast(explain(error),'err')}
         finally{
           if(preparationController===controller){

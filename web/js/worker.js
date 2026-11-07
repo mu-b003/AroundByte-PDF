@@ -79,6 +79,9 @@ export const explain=e=>{
     type:()=>t('failed'),
     verify:()=>t('verifyFail'),
     badtext:()=>t('watermarkLatin'),
-    badangle:()=>t('badAngle')
+    badangle:()=>t('badAngle'),
+    badsign:()=>t('badSignature'),
+    noforms:()=>t('noFormFields'),
+    formfield:()=>t('formFieldFailed')
   })[e?.code]?.()||t('failed')+': '+(e?.message||e||'Unknown error');
 };

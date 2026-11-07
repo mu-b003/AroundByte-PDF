@@ -1,4 +1,5 @@
 import {t} from './i18n.js';
+import {addHistory} from './history.js';
 export const $=(s,r=document)=>r.querySelector(s);
 export const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const fmt=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';
@@ -39,7 +40,8 @@ export function sortableList(host,arr,{row,onRemove,onChange}){
   host.ondragend=()=>{from=-1;host.querySelectorAll('.drag,.over').forEach(x=>x.classList.remove('drag','over'))};
   draw();return draw;
 }
-export function showResult({blob,name,pages}){
+export function showResult({blob,name,pages,operation='op_other'}){
+  addHistory(operation,name,blob.size,pages);
   const dlg=$('#dlg'),url=URL.createObjectURL(blob);
   dlg.innerHTML=`<div class="dh"><b>${t('done')} · ${esc(name)}.pdf <span class="tag">${fmt(blob.size)} · ${t('pages',{n:pages})}</span></b>
   <button class="btn" id="rc">${t('close')}</button><button class="btn pri" id="rd">${t('download')}</button></div><iframe src="${url}" title="${t('preview')}"></iframe>`;
@@ -50,7 +52,8 @@ export function showResult({blob,name,pages}){
 }
 export function progress(root){const w=$('.prog',root),b=$('i',w),p=$('.pt',root);
   return{show(on){w.hidden=p.hidden=!on;b.style.width='0'},set(a,n){b.style.width=(a/n*100)+'%';p.textContent=t('working',{a,b:n})}}}
-export function showFileResult({blob,name,label}){
+export function showFileResult({blob,name,label,operation='op_other',pages=0}){
+  addHistory(operation,name,blob.size,pages);
   const dlg=$('#dlg'),url=URL.createObjectURL(blob),filename=name;
   dlg.innerHTML=`<div class="dh"><b>${esc(label)} · ${esc(filename)} <span class="tag">${fmt(blob.size)}</span></b><button class="btn" id="rc">${t('close')}</button><button class="btn pri" id="rd">${t('download')}</button></div><div class="db"><p>${t('archiveReady')}</p></div>`;
   $('#rd',dlg).onclick=()=>{const a=document.createElement('a');a.href=url;a.download=filename;a.click()};
