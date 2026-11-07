@@ -1,6 +1,7 @@
 import {t} from '../i18n.js';
 import {$,toast,dropzone,safeName,ICON} from '../ui.js';
 import Tesseract from '../../vendor/tesseract/engine/tesseract.esm.min.js';
+import {reconstructOcrText} from './image-text-order.js';
 
 export const id='image-to-text',titleKey='imageTextTitle',descKey='imageTextDesc',icon=ICON.image;
 let files=[],worker=null,generation=0,busy=false,cancelRequested=false;
@@ -101,9 +102,9 @@ export function mount(root){
    for(let i=0;i<batch.length;i++){
     if(!current()||cancelRequested||worker!==localWorker)return;
     $r('#status').textContent=t('imageTextWorking',{a:i+1,b:batch.length});
-    const result=await localWorker.recognize(batch[i]);
+    const result=await localWorker.recognize(batch[i],{}, {text:true,blocks:true});
     if(!current()||cancelRequested||worker!==localWorker)return;
-    const recognized=result?.data?.text?.trim()||'';
+    const recognized=reconstructOcrText(result?.data)||'';
     output.push((batch.length>1?'===== '+batch[i].name+' =====\n':'')+
       (recognized||t('imageTextNoText')));
     $r('#result').value=output.join('\n\n');

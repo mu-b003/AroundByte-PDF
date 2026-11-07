@@ -8,7 +8,8 @@
     "test:logic": "node tests/worker-logic.test.mjs",
     "test:e2e": "node tests/e2e.mjs",
     "test:worker-manager": "node tests/worker-manager.test.mjs",
-    "test:pdfthumbs-lifecycle": "node tests/pdfthumbs-lifecycle.test.mjs"
+    "test:pdfthumbs-lifecycle": "node tests/pdfthumbs-lifecycle.test.mjs",
+    "test:image-text-order": "node tests/image-text-order.test.mjs"
   },
   "devDependencies": {
     "playwright": "^1.48.0"
