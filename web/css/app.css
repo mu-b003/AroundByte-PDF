@@ -464,12 +464,12 @@ dialog.abie-dialog{width:min(920px,96vw);max-width:96vw;max-height:92vh;padding:
 .tile.tool-tile-text{min-height:118px;justify-content:center;padding:18px;background:linear-gradient(135deg,rgba(255,200,0,.10),transparent 65%),#080808}
 .tile-copy{display:flex;flex-direction:column;gap:8px}.tile-copy b{color:var(--tx);font-size:14px}.tile-copy small{color:var(--mu);font-size:12px;line-height:1.6}
 
-/* Local PDF signature and form controls */
+/* Local PDF signature controls */
 .sign-pad{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
 .sign-pad canvas{display:block;width:100%;height:170px;border:1px dashed var(--line-strong);border-radius:10px;background:#fff;touch-action:none;cursor:crosshair}
-.form-fields{display:grid;gap:12px;margin-top:16px}
-.form-fields .form-field{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
-.form-fields .check-row{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+
+
+
 .muted{color:var(--mu);font-size:12px;line-height:1.7}
 
 .redact-canvas-wrap{max-width:920px;max-height:72vh;overflow:auto;padding:10px;border:1px solid var(--line);border-radius:12px;background:#242424}

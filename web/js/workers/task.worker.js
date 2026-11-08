@@ -89,29 +89,6 @@ const OPS={
     target.drawImage(image,{x:target.getWidth()-w-36,y:36,width:w,height:h});
     return finish(doc,pages.length);
   },
-  async inspectForms({file}){lib('pdf-lib.min.js');const doc=await openDoc(file);let form;
-    try{form=doc.getForm()}catch{form=null}
-    const fields=form?form.getFields().map(field=>{const type=typeof field.isChecked==='function'?'PDFCheckBox':typeof field.setText==='function'?'PDFTextField':typeof field.getOptions==='function'?'PDFDropdown':'PDFField',item={name:field.getName(),type};
-      try{if(typeof field.getOptions==='function')item.options=field.getOptions()}catch{}
-      try{if(typeof field.isChecked==='function')item.checked=field.isChecked()}catch{}
-      return item}):[];
-    return{value:{pages:doc.getPageCount(),fields}};
-  },
-  async fillForms({file,values={},flatten=false}){lib('pdf-lib.min.js');const doc=await openDoc(file);let form;
-    try{form=doc.getForm()}catch{fail('noforms')}
-    const fields=form.getFields();if(!fields.length)fail('noforms');
-    for(const field of fields){const name=field.getName();if(!Object.prototype.hasOwnProperty.call(values,name))continue;
-      const value=values[name];
-      try{
-        if(typeof field.isChecked==='function'){value?field.check():field.uncheck()}
-        else if(typeof field.setText==='function')field.setText(String(value??''));
-        else if(typeof field.select==='function'){if(value!==''&&value!==null&&value!==undefined)field.select(value)}
-      }catch{fail('formfield',name,'Could not update form field: '+name)}
-    }
-    try{form.updateFieldAppearances()}catch{}
-    if(flatten===true)form.flatten();
-    return finish(doc,doc.getPageCount());
-  },
   async redact({file,pages=[]}){lib('pdf-lib.min.js');const src=await openDoc(file),out=await PDFLib.PDFDocument.create(),byIndex=new Map(pages.map(p=>[Number(p.index),p]));
     for(let i=0;i<src.getPageCount();i++){
       const marked=byIndex.get(i);
@@ -122,15 +99,6 @@ const OPS={
       if(i%5===0)post({type:'progress',a:i+1,b:src.getPageCount()});
     }
     return finish(out,src.getPageCount());
-  },
-  async repair({pages=[]}){lib('pdf-lib.min.js');if(!Array.isArray(pages)||!pages.length)fail('norepairpages');
-    const out=await PDFLib.PDFDocument.create();
-    for(let i=0;i<pages.length;i++){const item=pages[i];if(!(item.png instanceof Uint8Array)||!item.png.length)fail('badrepair');
-      let image;try{image=await out.embedPng(item.png)}catch{fail('badrepair')}
-      const width=Math.max(1,Number(item.width)||595.28),height=Math.max(1,Number(item.height)||841.89),page=out.addPage([width,height]);
-      page.drawImage(image,{x:0,y:0,width,height});post({type:'progress',a:i+1,b:pages.length});
-    }
-    return finish(out,pages.length);
   },
   async zip({entries}){lib('jszip.min.js');const zip=new JSZip();
     for(const item of entries){if(!item||!item.name||!item.blob)fail('badzip');const data=item.blob instanceof Blob?new Uint8Array(await item.blob.arrayBuffer()):item.blob;zip.file(item.name,data)}

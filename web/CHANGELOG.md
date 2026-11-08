@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-11-08
+- Removed Fill PDF Forms and Repair PDF from the current web release, including their dedicated worker operations, pages, assets and tests.
 - Removed Image to Text from the current web release because recognition quality was not reliable enough. Its OCR engine and tool-specific assets are no longer bundled. The feature may be reconsidered in a future release.
 
 ## 2026-11-06

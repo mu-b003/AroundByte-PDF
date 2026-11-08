@@ -17,9 +17,7 @@ export const home={id:'home',titleKey:'homeTitle',descKey:'homeDesc',icon:ICON.h
       'pdf-to-png':'PDF to PNG.webp',
       compress:'Compress PDF.png',
       sign:'Sign PDF.png',
-      'fill-forms':'Fill PDF Forms.png',
-      redact:'Redact PDF.png',
-      repair:'Repair PDF.png'
+      redact:'Redact PDF.png'
     };
     root.innerHTML=`<div class="tiles">${T.map(x=>ART[x.id]?`<a class="tile tool-tile" href="#${x.id}" aria-label="${t(x.titleKey)}: ${t(x.descKey)}">
       <img class="tile-art" src="assets/tool-cards/${ART[x.id]}" alt="" loading="eager" decoding="async">

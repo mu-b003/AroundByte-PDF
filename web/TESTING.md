@@ -19,7 +19,7 @@ node tests/e2e.mjs             # starts the local server if needed; writes tests
 # Fast local regression checks (no browser required)
 npm run test:worker-manager && npm run test:logic && npm run test:pdfthumbs-lifecycle
 ```
-It covers: Image to PDF (A4/A3/Letter, both orientations, fit modes), Merge (order and invalid files), Organize (rotate, drag reorder, delete), Extract (ranges), Rotate PDF, Watermark, Page Numbers, Metadata, Compress PDF, Sign PDF, Fill PDF Forms, Redact PDF, Repair PDF, PDF to JPG/PNG (ZIP contents), Cancel, 800-page merge responsiveness, all exposed tool routes (including Compress, Sign, Fill Forms, Redact, Repair and Recent) in English and Arabic across desktop/tablet/mobile, RTL sidebar position, offline operation, zero external requests and uncaught page errors. The 111-test suite passed on the preceding revision; rerun it after the current changes. Manual checks below are still required before release.
+It covers: Image to PDF (A4/A3/Letter, both orientations, fit modes), Merge (order and invalid files), Organize (rotate, drag reorder, delete), Extract (ranges), Rotate PDF, Watermark, Page Numbers, Metadata, Compress PDF, Sign PDF, Redact PDF, PDF to JPG/PNG (ZIP contents), Cancel, 800-page merge responsiveness, all exposed tool routes (including Compress, Sign, Redact and Recent) in English and Arabic across desktop/tablet/mobile, RTL sidebar position, offline operation, zero external requests and uncaught page errors. The 111-test suite passed on the preceding revision; rerun it after the current changes. Manual checks below are still required before release.
 
 ## Manual checklist (things automation cannot judge)
 1. Open each screenshot in `tests/out/`; check Arabic alignment, icon/arrow direction, spacing, font rendering (Noto Sans Arabic), no clipped text.
@@ -35,7 +35,6 @@ It covers: Image to PDF (A4/A3/Letter, both orientations, fit modes), Merge (ord
 
 11. Compression: verify the tool returns the original when the lossless rewrite is not smaller; do not expect image downsampling in this version.
 12. Sign PDF: verify the drawn signature is visible on the selected page; this is an image stamp, not a cryptographic digital signature.
-13. Fill PDF Forms: test text fields, checkboxes, dropdowns and the flatten option in a full PDF reader; XFA forms and Arabic field appearance require separate validation.
 
 15. Redaction: search the output bytes and extract text from marked pages to confirm marked content is absent; verify unmarked pages remain selectable.
 16. Repair: test only with a PDF that PDF.js can partially open; expect image-only pages and no selectable text.

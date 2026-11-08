@@ -5,7 +5,7 @@ Plain HTML/CSS/ES-module JavaScript. No build step, backend, analytics or CDN. B
 `node serve.mjs 8080` (or `python3 -m http.server 8080`) then open http://localhost:8080. Modules, workers and the service worker need http(s), not file://. Deploy by uploading the folder to any static host over HTTPS. When adding or renaming files, update the list in `sw.js` and bump its cache name.
 
 ## Features
-Home, Image to PDF, Merge PDF, Organize PDF, Extract pages (multi-range), Rotate PDF, Add PDF Watermark, Add Page Numbers, Edit PDF Metadata, PDF to JPG, PDF to PNG, Compress PDF (lossless structural rewrite only), Sign PDF (drawn signature image), Fill PDF Forms (AcroForm fields), Redact PDF (permanent raster redaction of marked pages), Repair PDF (raster rebuild for PDFs PDF.js can still open), Recent activity, Settings, and About. English and Arabic with RTL. SEO landing pages are available for the tools, with sitemap.xml and robots.txt. Hidden ad containers (`[data-ad-slot]`, top and bottom) await AdSense code.
+Home, Image to PDF, Merge PDF, Organize PDF, Extract pages (multi-range), Rotate PDF, Add PDF Watermark, Add Page Numbers, Edit PDF Metadata, PDF to JPG, PDF to PNG, Compress PDF (lossless structural rewrite only), Sign PDF (drawn signature image), Redact PDF (permanent raster redaction of marked pages), Recent activity, Settings, and About. English and Arabic with RTL. SEO landing pages are available for the tools, with sitemap.xml and robots.txt. Hidden ad containers (`[data-ad-slot]`, top and bottom) await AdSense code.
 
 ## SEO pages
 Static SEO landing pages are provided for the available tools. The legacy `/split-pdf/` page is retained as a transparent landing-page alias for Extract PDF Pages; Split PDF is not a separate application tool.
