@@ -33,6 +33,8 @@ m=await run('export',{file:A,list:[{i:1,rot:90},{i:0,rot:0}]});out=await PDFDocu
 ck('export order+rot',out.getPage(0).getSize().width===200&&out.getPage(0).getRotation().angle===90&&out.getPage(1).getSize().width===100);
 let advanced=await run('rotate',{file:A,angle:90});out=await PDFDocument.load(advanced.result.bytes);ck('rotate all pages',out.getPages().every(p=>p.getRotation().angle===90));
 ck('rotate rejects invalid angle',(await run('rotate',{file:A,angle:45})).code==='badangle');
+const cropped=await run('crop',{file:A,boxes:[{index:0,x:10,y:5,width:80,height:40},{index:1,x:20,y:5,width:160,height:40}]});out=await PDFDocument.load(cropped.result.bytes);ck('crop applies crop boxes to every page',cropped.type==='done'&&out.getPage(0).getCropBox().width===80&&out.getPage(1).getCropBox().width===160);
+ck('crop rejects a box outside the page',(await run('crop',{file:A,boxes:[{index:0,x:-10,y:0,width:80,height:40},{index:1,x:0,y:0,width:100,height:40}]})).code==='badcrop');
 const watermarkPng=new Uint8Array(fs.readFileSync(path.join(root,'assets/aroundbyte-cover.png')));
 advanced=await run('watermark',{file:A,png:watermarkPng});out=await PDFDocument.load(advanced.result.bytes);
 ck('watermark embeds PNG and creates valid PDF',out.getPageCount()===2&&Buffer.from(advanced.result.bytes).includes(Buffer.from('/Subtype /Image')));

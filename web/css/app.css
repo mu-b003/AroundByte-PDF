@@ -474,3 +474,23 @@ dialog.abie-dialog{width:min(920px,96vw);max-width:96vw;max-height:92vh;padding:
 
 .redact-canvas-wrap{max-width:920px;max-height:72vh;overflow:auto;padding:10px;border:1px solid var(--line);border-radius:12px;background:#242424}
 #preview{display:block;width:100%;height:auto;max-width:100%;background:#fff;touch-action:none;cursor:crosshair}
+
+/* Crop PDF interactive page frame */
+.crop-stage{position:relative;width:min(100%,760px);margin:18px auto 8px;overflow:hidden;border:1px solid var(--line-strong);border-radius:12px;background:#222;box-shadow:0 12px 30px rgba(0,0,0,.22)}
+.crop-stage canvas{display:block;width:100%;height:auto;max-width:100%;background:#fff;cursor:default}
+.crop-frame{position:absolute;left:8%;top:8%;width:84%;height:84%;border:2px solid var(--y);box-shadow:0 0 0 9999px rgba(0,0,0,.48),inset 0 0 0 1px rgba(255,255,255,.3);cursor:move;touch-action:none}
+.crop-frame i{position:absolute;display:block;width:12px;height:12px;border:2px solid #1e1f22;border-radius:50%;background:var(--y);z-index:2;touch-action:none}
+.crop-frame i[data-edge=nw]{left:-7px;top:-7px;cursor:nwse-resize}.crop-frame i[data-edge=ne]{right:-7px;top:-7px;cursor:nesw-resize}.crop-frame i[data-edge=sw]{left:-7px;bottom:-7px;cursor:nesw-resize}.crop-frame i[data-edge=se]{right:-7px;bottom:-7px;cursor:nwse-resize}
+.crop-frame i[data-edge=n]{left:calc(50% - 6px);top:-7px;cursor:ns-resize}.crop-frame i[data-edge=s]{left:calc(50% - 6px);bottom:-7px;cursor:ns-resize}.crop-frame i[data-edge=w]{left:-7px;top:calc(50% - 6px);cursor:ew-resize}.crop-frame i[data-edge=e]{right:-7px;top:calc(50% - 6px);cursor:ew-resize}
+.crop-work .panel .two{gap:10px}.crop-work .panel label{min-width:0}.crop-work .panel input[type=number]{min-width:0}
+
+
+/* Add PDF Border preview */
+.border-preview{width:min(100%,360px);aspect-ratio:3/4;margin:20px auto 10px;padding:18px;background:#f4f0e6;border:1px solid var(--line-strong);border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.22)}
+.border-preview-inner{position:relative;width:100%;height:100%;border:var(--border-width,2px) solid var(--border-color,#ffc400);background:#fff;box-sizing:border-box}
+.border-preview-inner:before,.border-preview-inner:after{content:"";position:absolute;pointer-events:none}
+.border-preview-inner.preset-double:after,.border-preview-inner.preset-geometric:after,.border-preview-inner.preset-artdeco:after,.border-preview-inner.preset-botanical:after,.border-preview-inner.preset-certificate:after,.border-preview-inner.preset-ornate:after{inset:7px;border:1px solid var(--border-color)}
+.border-preview-inner.preset-minimal{border:0;background:linear-gradient(var(--border-color),var(--border-color)) left top/34% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) left top/var(--border-width) 25% no-repeat,linear-gradient(var(--border-color),var(--border-color)) right bottom/34% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) right bottom/var(--border-width) 25% no-repeat}
+.border-preview-inner.preset-corner{border:0;background:linear-gradient(var(--border-color),var(--border-color)) left top/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) left top/var(--border-width) 20% no-repeat,linear-gradient(var(--border-color),var(--border-color)) right top/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) right top/var(--border-width) 20% no-repeat,linear-gradient(var(--border-color),var(--border-color)) left bottom/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) left bottom/var(--border-width) 20% no-repeat,linear-gradient(var(--border-color),var(--border-color)) right bottom/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) right bottom/var(--border-width) 20% no-repeat}
+.border-preview-inner.preset-rounded{border-radius:16px}.border-preview-inner.preset-dotted{border-style:dotted}.border-preview-inner.preset-dashed{border-style:dashed}.border-preview-inner.preset-geometric{outline:1px solid var(--border-color);outline-offset:4px}.border-preview-inner.preset-artdeco:before{inset:14px;border:1px solid var(--border-color);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}.border-preview-inner.preset-botanical:before{inset:14px;border:1px dotted var(--border-color);border-radius:24px}.border-preview-inner.preset-certificate{outline:1px solid var(--border-color);outline-offset:4px}.border-preview-inner.preset-ornate{border-style:double}
+.border-work .panel .two{gap:10px}.border-work .panel label{min-width:0}.border-work input[type=color]{height:42px;padding:4px}.border-work select,.border-work input{min-width:0}

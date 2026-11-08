@@ -80,6 +80,8 @@ export const explain=e=>{
     verify:()=>t('verifyFail'),
     badtext:()=>t('watermarkLatin'),
     badangle:()=>t('badAngle'),
+    badcrop:()=>t('cropInvalid'),
+    badrange:()=>t('borderRangeError'),
     badsign:()=>t('badSignature'),
     noforms:()=>t('noFormFields'),
     formfield:()=>t('formFieldFailed')
