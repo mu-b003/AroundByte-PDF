@@ -4,7 +4,7 @@ import {task,explain} from '../worker.js';
 
 export const id='protect',titleKey='protectTitle',descKey='protectDesc',icon=ICON.info;
 
-let source=null,pages=0,busy=false,inspect=null,job=null,generation=0,name='document';
+let source=null,pages=0,busy=false,inspect=null,job=null,generation=0,name='document',cancelCurrent=()=>{};
 
 function protectWithQpdf(input,userPassword,ownerPassword,permissions){
   const worker=new Worker(new URL('../workers/qpdf-protect.worker.js',import.meta.url));
@@ -46,7 +46,6 @@ function protectWithQpdf(input,userPassword,ownerPassword,permissions){
 
 export function mount(root){
   const token=++generation,current=()=>token===generation;
-  let cancelCurrent=()=>{};
 
   root.innerHTML=`
     <div class="work">
@@ -196,7 +195,7 @@ export function mount(root){
   update();
 }
 
-export function unmount(){
+export function unmount({preserveState=false}={}){
   generation++;
   cancelCurrent();
   cancelCurrent=()=>{};
@@ -204,6 +203,10 @@ export function unmount(){
   inspect=null;
   job?.cancel();
   job=null;
-  source=null;
   busy=false;
+  if(!preserveState){
+    source=null;
+    pages=0;
+    name='document';
+  }
 }
