@@ -131,7 +131,7 @@ await go('split');await page.waitForTimeout(100);ck('split alias routes to extra
 // 7 Language / RTL / viewports
 for(const [lang,dir] of[['ar','rtl'],['en','ltr']])for(const [name,w,h] of[['desktop',1440,900],['tablet',820,1180],['mobile',390,844]]){
   await page.setViewportSize({width:w,height:h});await page.evaluate(l=>localStorage.setItem('abpdf-lang',l),lang);
-  for(const t of['home','img2pdf','merge','organize','extract','rotate','watermark','numbers','metadata','pdf-to-jpg','pdf-to-png','compress','sign','redact','recent','settings','about']){await page.goto(URL_+'#'+t);await page.reload();
+  for(const t of['home','img2pdf','merge','organize','extract','rotate','watermark','numbers','metadata','pdf-to-jpg','pdf-to-png','compress','sign','protect','redact','recent','settings','about']){await page.goto(URL_+'#'+t);await page.reload();
     ck(`${lang}/${name}/${t} dir+no h-overflow`,await page.evaluate(d=>document.documentElement.dir===d&&document.documentElement.scrollWidth<=innerWidth+1,dir));
     if(t==='img2pdf'||t==='home')await page.screenshot({path:path.join(out,`${lang}-${name}-${t}.png`)})}}
 await page.setViewportSize({width:1440,height:900});await page.evaluate(()=>localStorage.setItem('abpdf-lang','ar'));await page.goto(URL_);await page.reload();
