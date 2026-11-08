@@ -474,36 +474,3 @@ dialog.abie-dialog{width:min(920px,96vw);max-width:96vw;max-height:92vh;padding:
 
 .redact-canvas-wrap{max-width:920px;max-height:72vh;overflow:auto;padding:10px;border:1px solid var(--line);border-radius:12px;background:#242424}
 #preview{display:block;width:100%;height:auto;max-width:100%;background:#fff;touch-action:none;cursor:crosshair}
-
-
-/* Image to Text: spacious extracted-text workspace */
-.work.image-text-work{align-items:stretch}
-.work.image-text-work>div:first-child{
-  min-height:calc(100vh - 250px);
-  display:flex;
-  flex-direction:column;
-}
-.image-text-result{
-  display:block;
-  width:100%;
-  min-width:0;
-  min-height:420px;
-  height:clamp(420px,58vh,720px);
-  padding:12px;
-  background:var(--field-bg);
-  color:var(--tx);
-  border:1px solid var(--line-strong);
-  border-radius:10px;
-  line-height:1.65;
-  resize:vertical;
-  white-space:pre-wrap;
-  overflow:auto;
-}
-@media(max-width:700px){
-  .work.image-text-work>div:first-child{min-height:0}
-  .image-text-result{
-    min-height:300px;
-    height:48vh;
-    max-height:520px;
-  }
-}

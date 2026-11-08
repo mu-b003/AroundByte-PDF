@@ -16,7 +16,6 @@ export const home={id:'home',titleKey:'homeTitle',descKey:'homeDesc',icon:ICON.h
       'pdf-to-jpg':'PDF to JPG.webp',
       'pdf-to-png':'PDF to PNG.webp',
       compress:'Compress PDF.png',
-      'image-to-text':'Image to Text.png',
       sign:'Sign PDF.png',
       'fill-forms':'Fill PDF Forms.png',
       redact:'Redact PDF.png',

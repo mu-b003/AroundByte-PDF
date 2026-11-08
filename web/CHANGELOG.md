@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-08
+- Removed Image to Text from the current web release because recognition quality was not reliable enough. Its OCR engine and tool-specific assets are no longer bundled. The feature may be reconsidered in a future release.
+
 ## 2026-11-06
 - Hardened PDF.js document loading with abort support and stale-load protection.
 - Made Organize and Extract dispose thumbnail observers, render tasks and object URLs; preserve loaded document state during language changes.
