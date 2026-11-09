@@ -494,3 +494,140 @@ dialog.abie-dialog{width:min(920px,96vw);max-width:96vw;max-height:92vh;padding:
 .border-preview-inner.preset-corner{border:0;background:linear-gradient(var(--border-color),var(--border-color)) left top/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) left top/var(--border-width) 20% no-repeat,linear-gradient(var(--border-color),var(--border-color)) right top/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) right top/var(--border-width) 20% no-repeat,linear-gradient(var(--border-color),var(--border-color)) left bottom/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) left bottom/var(--border-width) 20% no-repeat,linear-gradient(var(--border-color),var(--border-color)) right bottom/28% var(--border-width) no-repeat,linear-gradient(var(--border-color),var(--border-color)) right bottom/var(--border-width) 20% no-repeat}
 .border-preview-inner.preset-rounded{border-radius:16px}.border-preview-inner.preset-dotted{border-style:dotted}.border-preview-inner.preset-dashed{border-style:dashed}.border-preview-inner.preset-geometric{outline:1px solid var(--border-color);outline-offset:4px}.border-preview-inner.preset-artdeco:before{inset:14px;border:1px solid var(--border-color);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}.border-preview-inner.preset-botanical:before{inset:14px;border:1px dotted var(--border-color);border-radius:24px}.border-preview-inner.preset-certificate{outline:1px solid var(--border-color);outline-offset:4px}.border-preview-inner.preset-ornate{border-style:double}
 .border-work .panel .two{gap:10px}.border-work .panel label{min-width:0}.border-work input[type=color]{height:42px;padding:4px}.border-work select,.border-work input{min-width:0}
+
+/* AROUNDBYTE TOOL ARTICLE */
+.tool-article {
+  margin: 22px 0 10px;
+  color: var(--tx);
+}
+
+.tool-article-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--gold-edge);
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.tool-article-toggle:hover {
+  border-color: var(--y);
+}
+
+.tool-article-chevron {
+  display: inline-block;
+  transition: transform .2s ease;
+}
+
+.tool-article.is-expanded .tool-article-chevron {
+  transform: rotate(180deg);
+}
+
+.tool-article-content {
+  margin-top: 14px;
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--gold-edge);
+  border-radius: 14px;
+  background: var(--panel-bg);
+  line-height: 1.85;
+}
+
+.tool-article-content[hidden] {
+  display: none !important;
+}
+
+.tool-article-content article {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.tool-article-content h2 {
+  margin: 0 0 12px;
+  color: var(--tx);
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  line-height: 1.4;
+}
+
+.tool-article-content h3 {
+  margin: 25px 0 9px;
+  color: var(--tx);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.tool-article-content p {
+  margin: 0;
+  color: var(--mu);
+}
+
+.tool-article-content .tool-article-intro {
+  margin-bottom: 20px;
+}
+
+.tool-article-content ul,
+.tool-article-content ol {
+  margin: 8px 0 0;
+  padding-inline-start: 25px;
+  color: var(--mu);
+}
+
+.tool-article-content li {
+  padding-inline-start: 4px;
+  margin: 5px 0;
+}
+
+.tool-article-content li strong {
+  color: var(--tx);
+}
+
+.tool-article-faqs {
+  display: grid;
+  gap: 9px;
+  margin-top: 10px;
+}
+
+.tool-article-faq {
+  padding: 12px 15px;
+  border: 1px solid var(--gold-edge);
+  border-radius: 10px;
+  background: var(--bg, transparent);
+}
+
+.tool-article-faq summary {
+  color: var(--tx);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.tool-article-faq p {
+  padding-top: 9px;
+}
+
+.tool-article-note {
+  margin-top: 24px;
+  padding: 15px 17px;
+  border-inline-start: 3px solid var(--y);
+  border-radius: 8px;
+  background: var(--panel-bg);
+}
+
+.tool-article-note h3 {
+  margin: 0 0 5px;
+}
+
+@media (max-width: 600px) {
+  .tool-article {
+    margin-top: 16px;
+  }
+
+  .tool-article-content {
+    padding: 16px;
+  }
+
+  .tool-article-content h3 {
+    margin-top: 21px;
+  }
+}

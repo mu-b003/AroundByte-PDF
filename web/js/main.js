@@ -15,6 +15,7 @@ import * as protect from './tools/protect.js';
 import * as border from './tools/border.js';
 import * as crop from './tools/crop.js';
 import './strings.js';
+import {appendToolContent} from './tool-content.js';
 const TOOLS=[home,img,mrg,org,ext,crop,rotate,watermark,numbers,metadata,pdfToJpg,pdfToPng,compress,sign,redact,protect,border,recent,settings,about];
 applyTheme();
 const current=()=>TOOLS.find(x=>x.id===location.hash.slice(1))||TOOLS[0];
@@ -33,6 +34,7 @@ function render(reason='route'){
   $('#priv').textContent=t('priv');$('#lang').textContent=l==='en'?'العربية':'English';
   document.title=`${t(tool.titleKey)} — AroundByte PDF`;
   tool.mount($('#view'),TOOLS,render);
+  appendToolContent(tool,$('#view'));
 }
 $('#lang').onclick=()=>{setLang(lang()==='en'?'ar':'en');render('language')};
 const normalizeRoute=()=>{if(['#split','#split-pdf'].includes(location.hash)){location.hash='extract';toast(t('splitAliasToast'));return true}return false};
