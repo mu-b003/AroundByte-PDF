@@ -25,9 +25,22 @@
     <p class="priv" id="priv"></p>
   </aside>
   <main>
-    <header class="top"><div><h1 id="title"></h1><p id="desc"></p></div><button id="lang" class="btn ghost"></button></header>
-    <!-- Ad placement: stays hidden until real AdSense code is added -->
-    <div class="ad" data-ad-slot="top" hidden></div>
+    <header class="top">
+      <div class="top-copy"><h1 id="title"></h1><p id="desc"></p></div>
+      <div class="ad ad-top" data-ad-slot="top" aria-label="Advertisement">
+        <script>
+          atOptions = {
+            'key' : 'fac60867b02293c86d42fd40a4b15d9b',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://bauval.org/22/fac60867b02293c86d42fd40a4b15d9b"></script>
+      </div>
+      <button id="lang" class="btn ghost"></button>
+    </header>
     <section id="view"></section>
     <div class="ad" data-ad-slot="bottom" hidden></div>
     <footer class="app-footer">
