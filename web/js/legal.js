@@ -6,7 +6,7 @@ about: {
 en: {
 title: 'About Us',
 sections: [
-['About AroundByte PDF', 'AroundByte PDF is a browser-based toolkit designed to help people work with PDF documents and images through a simple, practical interface.'],
+['About AroundByte Documents', 'AroundByte Documents is a browser-based toolkit designed to help people work with PDF documents and images through a simple, practical interface.'],
 ['Our purpose', 'Our goal is to provide useful document tools that are straightforward to use, with a focus on privacy, accessibility and a clean experience.'],
 ['Available tools', 'The application currently includes image-to-PDF conversion, PDF merging, page organization and PDF page extraction. Features may change or improve over time.'],
 ['Privacy by design', 'PDF and image processing is performed locally in your browser. The application does not require an account to use its core tools.'],
@@ -18,7 +18,7 @@ updated: 'Last updated: November 1, 2026'
 ar: {
 title: 'من نحن',
 sections: [
-['حول AroundByte PDF', 'AroundByte PDF مجموعة أدوات تعمل عبر المتصفح، صُممت لمساعدة المستخدمين على التعامل مع مستندات PDF والصور من خلال واجهة بسيطة وعملية.'],
+['حول AroundByte Documents', 'AroundByte Documents مجموعة أدوات تعمل عبر المتصفح، صُممت لمساعدة المستخدمين على التعامل مع مستندات PDF والصور من خلال واجهة بسيطة وعملية.'],
 ['هدفنا', 'نسعى إلى توفير أدوات مفيدة للمستندات سهلة الاستخدام، مع التركيز على الخصوصية وسهولة الوصول وتجربة استخدام واضحة.'],
 ['الأدوات المتاحة', 'يتضمن التطبيق حالياً تحويل الصور إلى PDF، ودمج ملفات PDF، وتنظيم الصفحات، واستخراج صفحات PDF. وقد تتغير الميزات أو تتحسن بمرور الوقت.'],
 ['الخصوصية في التصميم', 'تتم معالجة ملفات PDF والصور محلياً داخل متصفحك. ولا يتطلب استخدام الأدوات الأساسية إنشاء حساب.'],
@@ -32,17 +32,17 @@ contact: {
 en: {
 title: 'Contact Us',
 sections: [
-['Get in touch', 'We welcome questions, suggestions, bug reports and feedback about AroundByte PDF.'],
+['Get in touch', 'We welcome questions, suggestions, bug reports and feedback about AroundByte Documents.'],
 ['Email support', 'For general questions, technical issues or feedback, email us at the address below. Please describe the issue clearly and include the browser and device you are using when relevant.'],
 ['Response time', 'We will do our best to review messages and respond when possible. A response is not guaranteed within a specific time.'],
-['Important', 'Do not email passwords, payment card details or other sensitive personal information. AroundByte PDF does not need your original PDF or image files to receive general feedback.']
+['Important', 'Do not email passwords, payment card details or other sensitive personal information. AroundByte Documents does not need your original PDF or image files to receive general feedback.']
 ],
 updated: 'Last updated: November 1, 2026'
 },
 ar: {
 title: 'اتصل بنا',
 sections: [
-['يسعدنا تواصلك', 'نرحب باستفساراتك واقتراحاتك وبلاغات الأخطاء وملاحظاتك حول AroundByte PDF.'],
+['يسعدنا تواصلك', 'نرحب باستفساراتك واقتراحاتك وبلاغات الأخطاء وملاحظاتك حول AroundByte Documents.'],
 ['الدعم عبر البريد الإلكتروني', 'للاستفسارات العامة أو المشكلات التقنية أو إرسال الملاحظات، راسلنا على البريد الإلكتروني أدناه. يُرجى وصف المشكلة بوضوح وذكر المتصفح والجهاز المستخدم عند الحاجة.'],
 ['وقت الرد', 'سنبذل جهدنا لمراجعة الرسائل والرد عليها متى أمكن. ولا نضمن الرد خلال مدة زمنية محددة.'],
 ['ملاحظة مهمة', 'لا ترسل كلمات المرور أو بيانات البطاقات المصرفية أو أي معلومات شخصية حساسة. لا نحتاج إلى ملفات PDF أو الصور الأصلية لاستقبال الملاحظات العامة.']
@@ -54,7 +54,7 @@ privacy: {
 en: {
 title: 'Privacy Policy',
 sections: [
-['Introduction', 'This Privacy Policy explains how AroundByte PDF handles information when you visit or use the application. We aim to collect as little information as reasonably possible.'],
+['Introduction', 'This Privacy Policy explains how AroundByte Documents handles information when you visit or use the application. We aim to collect as little information as reasonably possible.'],
 ['Files you process', 'The PDF and image tools are designed to process files locally in your browser. Your selected files are not intentionally uploaded to an AroundByte server by these tools. Processing may depend on your browser and device capabilities.'],
 ['Recent activity', 'If you use the Recent screen, the app stores operation names, file names, file sizes, page counts and timestamps in your browser local IndexedDB storage. It does not store the PDF or image contents. You can clear this history from the Recent screen or clear this site data in your browser.'],
 ['Information stored on your device', 'The application uses browser local storage to remember preferences such as your selected language and appearance theme. This information remains in your browser storage unless you clear it.'],
@@ -71,7 +71,7 @@ updated: 'Last updated: November 1, 2026'
 ar: {
 title: 'سياسة الخصوصية',
 sections: [
-['مقدمة', 'توضح سياسة الخصوصية هذه كيفية تعامل AroundByte PDF مع المعلومات عند زيارة التطبيق أو استخدامه. ونسعى إلى تقليل جمع المعلومات إلى أدنى حد ممكن.'],
+['مقدمة', 'توضح سياسة الخصوصية هذه كيفية تعامل AroundByte Documents مع المعلومات عند زيارة التطبيق أو استخدامه. ونسعى إلى تقليل جمع المعلومات إلى أدنى حد ممكن.'],
 ['الملفات التي تعالجها', 'صُممت أدوات PDF والصور لمعالجة الملفات محلياً داخل متصفحك. ولا تقوم هذه الأدوات عمداً برفع الملفات التي تختارها إلى خادم تابع لـ AroundByte. وقد تعتمد المعالجة على إمكانات المتصفح والجهاز.'],
 ['المعلومات المخزنة على جهازك', 'يستخدم التطبيق التخزين المحلي للمتصفح لتذكر تفضيلات مثل اللغة والمظهر. وتبقى هذه المعلومات في مساحة التخزين الخاصة بمتصفحك ما لم تقم بمسحها.'],
 ['معلومات الاستضافة', 'قد يعالج مزود الاستضافة معلومات تقنية اعتيادية عند زيارتك للموقع، مثل عنوان IP ووقت الطلب وتفاصيل المتصفح وسجلات الخادم، وفقاً لسياساته ومتطلبات تشغيل الخدمة.'],
@@ -89,7 +89,7 @@ terms: {
 en: {
 title: 'Terms of Use',
 sections: [
-['Acceptance of terms', 'By accessing or using AroundByte PDF, you agree to these Terms of Use. If you do not agree, please do not use the application.'],
+['Acceptance of terms', 'By accessing or using AroundByte Documents, you agree to these Terms of Use. If you do not agree, please do not use the application.'],
 ['Permitted use', 'You may use the application for lawful personal or business purposes. You are responsible for ensuring that your use complies with applicable laws and that you have the right to process the files you select.'],
 ['Your files and responsibilities', 'You remain responsible for the documents and images you choose to process, including their content, ownership and permissions. Do not use the application to process unlawful material or violate another person’s rights.'],
 ['Local processing', 'The tools are designed to process files in your browser. You are responsible for keeping your original files and maintaining suitable backups. The application is not a permanent file storage service.'],
@@ -105,7 +105,7 @@ updated: 'Last updated: November 1, 2026'
 ar: {
 title: 'شروط الاستخدام',
 sections: [
-['الموافقة على الشروط', 'بدخولك إلى AroundByte PDF أو استخدامه، فإنك توافق على شروط الاستخدام هذه. إذا لم توافق عليها، يُرجى عدم استخدام التطبيق.'],
+['الموافقة على الشروط', 'بدخولك إلى AroundByte Documents أو استخدامه، فإنك توافق على شروط الاستخدام هذه. إذا لم توافق عليها، يُرجى عدم استخدام التطبيق.'],
 ['الاستخدام المسموح', 'يمكنك استخدام التطبيق لأغراض شخصية أو تجارية مشروعة. وتقع على عاتقك مسؤولية التأكد من توافق استخدامك مع القوانين المعمول بها وامتلاكك الحق في معالجة الملفات التي تختارها.'],
 ['ملفاتك ومسؤولياتك', 'تظل مسؤولاً عن المستندات والصور التي تختار معالجتها، بما في ذلك محتواها وملكيتها والأذونات المتعلقة بها. لا تستخدم التطبيق لمعالجة مواد غير قانونية أو لانتهاك حقوق الآخرين.'],
 ['المعالجة المحلية', 'صُممت الأدوات لمعالجة الملفات داخل متصفحك. وتقع على عاتقك مسؤولية الاحتفاظ بنسخ من ملفاتك الأصلية وإنشاء نسخ احتياطية مناسبة. التطبيق ليس خدمة تخزين دائم للملفات.'],
@@ -124,7 +124,7 @@ en: {
 title: 'Cookie Policy',
 sections: [
 ['What are cookies?', 'Cookies are small text files that websites may store in your browser. Similar technologies can store or access information on your device.'],
-['How this application stores preferences', 'AroundByte PDF currently uses browser local storage to remember your language and appearance preferences. Local storage is different from browser cookies and is used to keep these settings between visits.'],
+['How this application stores preferences', 'AroundByte Documents currently uses browser local storage to remember your language and appearance preferences. Local storage is different from browser cookies and is used to keep these settings between visits.'],
 ['Essential operation', 'The PDF tools do not require advertising cookies to process your files. Your browser may also store cached application resources to help the website load and work offline or more efficiently.'],
 ['Third-party services', 'The hosting provider or third-party services may use cookies or similar technologies according to their own configurations and policies. Google AdSense is not currently activated in the application. If advertising is introduced, this policy will be updated to explain relevant cookies and available controls.'],
 ['Managing stored data', 'You can clear cookies and site data through your browser settings. Clearing local site data may reset saved language and appearance preferences and remove cached resources.'],
@@ -136,7 +136,7 @@ ar: {
 title: 'سياسة ملفات تعريف الارتباط',
 sections: [
 ['ما ملفات تعريف الارتباط؟', 'ملفات تعريف الارتباط هي ملفات نصية صغيرة قد تخزنها المواقع في متصفحك. وتستطيع تقنيات مشابهة تخزين المعلومات على جهازك أو الوصول إليها.'],
-['كيفية حفظ التفضيلات في التطبيق', 'يستخدم AroundByte PDF حالياً التخزين المحلي للمتصفح لتذكر تفضيلات اللغة والمظهر. ويختلف التخزين المحلي عن ملفات تعريف الارتباط، ويُستخدم للاحتفاظ بهذه الإعدادات بين الزيارات.'],
+['كيفية حفظ التفضيلات في التطبيق', 'يستخدم AroundByte Documents حالياً التخزين المحلي للمتصفح لتذكر تفضيلات اللغة والمظهر. ويختلف التخزين المحلي عن ملفات تعريف الارتباط، ويُستخدم للاحتفاظ بهذه الإعدادات بين الزيارات.'],
 ['التشغيل الأساسي', 'لا تحتاج أدوات PDF إلى ملفات تعريف ارتباط إعلانية لمعالجة ملفاتك. وقد يحتفظ متصفحك أيضاً بنسخ مخزنة مؤقتاً من موارد التطبيق للمساعدة في تحميل الموقع وتشغيله دون اتصال أو بكفاءة أكبر.'],
 ['الخدمات الخارجية', 'قد يستخدم مزود الاستضافة أو الخدمات الخارجية ملفات تعريف الارتباط أو تقنيات مشابهة وفقاً لإعداداتها وسياساتها. إعلانات Google AdSense غير مفعّلة حالياً في التطبيق. وإذا أُضيفت الإعلانات مستقبلاً، فسنحدّث هذه السياسة لتوضيح ملفات تعريف الارتباط ذات الصلة وخيارات التحكم المتاحة.'],
 ['إدارة البيانات المخزنة', 'يمكنك مسح ملفات تعريف الارتباط وبيانات الموقع من إعدادات المتصفح. وقد يؤدي مسح بيانات الموقع إلى إعادة ضبط تفضيلات اللغة والمظهر وإزالة الموارد المخزنة مؤقتاً.'],
@@ -149,7 +149,7 @@ disclaimer: {
 en: {
 title: 'Disclaimer',
 sections: [
-['General information', 'AroundByte PDF is provided as a document-processing utility. Information on this website is for general informational purposes and should not be treated as professional advice.'],
+['General information', 'AroundByte Documents is provided as a document-processing utility. Information on this website is for general informational purposes and should not be treated as professional advice.'],
 ['Accuracy and results', 'We work to make the tools useful and reliable, but we cannot guarantee that every file will be processed correctly or that every output will meet a particular requirement. Always review generated documents before relying on them.'],
 ['Keep your own copies', 'You are responsible for keeping original files and backups. Do not rely on this application as the only copy or permanent storage location for important documents.'],
 ['Third-party libraries and services', 'The application may rely on third-party software libraries and hosting services. Their availability and operation may be subject to their own terms and policies.'],
@@ -162,7 +162,7 @@ updated: 'Last updated: November 1, 2026'
 ar: {
 title: 'إخلاء المسؤولية',
 sections: [
-['معلومات عامة', 'يُقدَّم AroundByte PDF كأداة لمعالجة المستندات. والمعلومات الموجودة في هذا الموقع لأغراض معلوماتية عامة، ولا ينبغي اعتبارها استشارة مهنية.'],
+['معلومات عامة', 'يُقدَّم AroundByte Documents كأداة لمعالجة المستندات. والمعلومات الموجودة في هذا الموقع لأغراض معلوماتية عامة، ولا ينبغي اعتبارها استشارة مهنية.'],
 ['الدقة والنتائج', 'نعمل على جعل الأدوات مفيدة وموثوقة، لكننا لا نضمن معالجة كل ملف بصورة صحيحة أو مطابقة كل نتيجة لمتطلبات معينة. راجع دائماً المستندات الناتجة قبل الاعتماد عليها.'],
 ['الاحتفاظ بنسخك', 'أنت مسؤول عن الاحتفاظ بالملفات الأصلية والنسخ الاحتياطية. لا تعتمد على هذا التطبيق باعتباره النسخة الوحيدة أو مكان التخزين الدائم للمستندات المهمة.'],
 ['المكتبات والخدمات الخارجية', 'قد يعتمد التطبيق على مكتبات برمجية وخدمات استضافة تابعة لأطراف خارجية. وقد يخضع توفرها وتشغيلها لشروط وسياسات تلك الجهات.'],
@@ -227,10 +227,10 @@ function render() {
 
   $('legalLang').textContent = language === 'en' ? 'العربية' : 'English';
   $('backLink').textContent = language === 'en' ? 'Back to app' : 'العودة إلى التطبيق';
-  $('footerHome').textContent = language === 'en' ? 'AroundByte PDF' : 'AroundByte PDF';
+  $('footerHome').textContent = language === 'en' ? 'AroundByte Documents' : 'AroundByte Documents';
   $('contactPrompt').textContent = language === 'en' ? 'For questions, contact us: ' : 'للاستفسارات، تواصل معنا: ';
   $('legalYear').textContent = new Date().getFullYear();
-  document.title = `${data.title} — AroundByte PDF`;
+  document.title = `${data.title} — AroundByte Documents`;
 }
 
 $('legalLang').addEventListener('click', () => {

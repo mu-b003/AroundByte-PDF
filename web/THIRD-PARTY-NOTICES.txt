@@ -1,7 +1,7 @@
 THIRD-PARTY NOTICES
 ===================
 
-AroundByte PDF uses the following third-party software components.
+AroundByte Documents uses the following third-party software components.
 
 These notices are provided to preserve the applicable copyright,
 license, and attribution information.

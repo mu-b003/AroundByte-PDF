@@ -109,7 +109,7 @@ export function grid(host,pdf,pages,{card='',drag=false,onChange=()=>{},onAct=()
       onChange();
     }
   };
-  const onDragStart=e=>{const item=e.target.closest('.card');if(item&&!destroyed)from=Number(item.dataset.k)};
+  const onDragStart=e=>{const item=e.target.closest('.card');if(item&&!destroyed){from=Number(item.dataset.k);if(e.dataTransfer){e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(from))}}};
   const onDragOver=e=>{if(!destroyed&&from>=0&&e.target.closest('.card'))e.preventDefault()};
   const onDrop=e=>{
     const item=e.target.closest('.card');

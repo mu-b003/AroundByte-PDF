@@ -29,10 +29,17 @@ function render(reason='route'){
     activeTool?.unmount?.({preserveState:true});
   }
   document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
-  $('#nav').innerHTML=TOOLS.map(x=>`<a href="#${x.id}" ${x===tool?'aria-current="page"':''}>${x.icon}${t(x.titleKey)}</a>`).join('');
+  const documentTools=TOOLS.filter(x=>!['home','settings','about','recent'].includes(x.id));
+  $('#nav').innerHTML=documentTools.map(x=>`<a href="#${x.id}" ${x===tool?'aria-current="page"':''}>${x.icon}${t(x.titleKey)}</a>`).join('');
+  $('#toolsMenuLabel').innerHTML=(l==='en'?'PDF Tools':'أدوات PDF')+' <span class="chevron" aria-hidden="true">⌄</span>';
+  $('#aboutNav').textContent=l==='en'?'About':'من نحن';
+  $('#contactNav').textContent=l==='en'?'Contact':'اتصل بنا';
+  $('#recentNav').textContent=l==='en'?'Recent':'الأخيرة';
+  $('#settingsNav').title=l==='en'?'Settings':'الإعدادات';
   $('#title').textContent=t(tool.titleKey);$('#desc').textContent=t(tool.descKey);
-  $('#priv').textContent=t('priv');$('#lang').textContent=l==='en'?'العربية':'English';
-  document.title=`${t(tool.titleKey)} — AroundByte PDF`;
+  $('#lang').textContent=l==='en'?'العربية':'English';
+  document.title=`${t(tool.titleKey)} — AroundByte Documents`;
+  $('#toolsDropdown').open=false;
   tool.mount($('#view'),TOOLS,render);
   appendToolContent(tool,$('#view'));
 }

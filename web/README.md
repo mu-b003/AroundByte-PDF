@@ -1,4 +1,4 @@
-# AroundByte PDF (web)
+# AroundByte Documents (web)
 Plain HTML/CSS/ES-module JavaScript. No build step, backend, analytics or CDN. Bundled in `vendor/`: pdf-lib 1.17.1, PDF.js 3.11.174, JSZip 3.10.1.
 
 ## Run

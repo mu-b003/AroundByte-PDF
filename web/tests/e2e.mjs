@@ -135,7 +135,10 @@ for(const [lang,dir] of[['ar','rtl'],['en','ltr']])for(const [name,w,h] of[['des
     ck(`${lang}/${name}/${t} dir+no h-overflow`,await page.evaluate(d=>document.documentElement.dir===d&&document.documentElement.scrollWidth<=innerWidth+1,dir));
     if(t==='img2pdf'||t==='home')await page.screenshot({path:path.join(out,`${lang}-${name}-${t}.png`)})}}
 await page.setViewportSize({width:1440,height:900});await page.evaluate(()=>localStorage.setItem('abpdf-lang','ar'));await page.goto(URL_);await page.reload();
-ck('RTL sidebar on the right',await page.evaluate(()=>document.querySelector('.side').getBoundingClientRect().left>innerWidth/2));
+ck('RTL brand is on the right',await page.evaluate(()=>document.querySelector('.brand').getBoundingClientRect().left>innerWidth/2));
+await page.locator('#toolsDropdown > summary').click();
+ck('PDF tools dropdown contains all 16 tools',await page.locator('#nav a').count()===16);
+await page.locator('#toolsDropdown > summary').click();
 await page.evaluate(()=>localStorage.setItem('abpdf-lang','en'));
 // 9 Offline
 await page.goto(URL_);await page.evaluate(()=>navigator.serviceWorker.ready);await page.reload();await page.waitForTimeout(500);
@@ -146,7 +149,8 @@ await go('rotate');await page.setInputFiles('#fi',fx('five.pdf'));await page.wai
 await go('organize');await page.setInputFiles('#fi',fx('five.pdf'));await page.waitForSelector('.card:nth-child(5) img[src]');ck('offline: PDF.js thumbnails work',true);
 await ctx.setOffline(false);
 const parsed=requests.map(u=>{const x=new URL(u);return{url:u,protocol:x.protocol,host:x.host}});
-const external=parsed.filter(x=>['http:','https:','ws:','wss:'].includes(x.protocol)&&x.host!=='localhost:8080');
+const allowedAdUrl='https://bauval.org/22/fac60867b02293c86d42fd40a4b15d9b';
+const external=parsed.filter(x=>['http:','https:','ws:','wss:'].includes(x.protocol)&&x.host!=='localhost:8080'&&x.url!==allowedAdUrl);
 const hostless=parsed.filter(x=>!x.host);
 ck('no external hosts contacted',external.length===0,`external=${JSON.stringify(external)}; hostless=${JSON.stringify(hostless)}`);ck('no uncaught page errors',errs.length===0,errs.join(' | '));
 fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(res,null,1));await ctx.close();

@@ -1,6 +1,6 @@
 # Third-party notices
 
-This file records the third-party components visible in the supplied AroundByte PDF source archive. It is not a substitute for upstream license texts.
+This file records the third-party components visible in the supplied AroundByte Documents source archive. It is not a substitute for upstream license texts.
 
 | Component | Bundled artifact | License status in this source archive | Release action |
 |---|---|---|---|

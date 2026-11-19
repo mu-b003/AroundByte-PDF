@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AroundByte PDF — legal & information pages (same black + yellow identity)
+   AroundByte Documents — legal & information pages (same black + yellow identity)
    Loaded after app.css; uses the same tokens.
    ========================================================================== */
 .legal-page{min-height:100vh;color:var(--tx)}
